@@ -1,2 +1,0 @@
-# Set MIME type for vCard
-AddType text/x-vcard .vcf
