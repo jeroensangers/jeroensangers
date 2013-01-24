@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Error 401: Authorization required</title>
+		<style type="text/css">
+		/*<![CDATA[*/
+			body { background: url(http://www.brytenet.com/coin_themes/brytenet/images/background-fade.jpg) repeat-x; }
+			h1 { 			}
+			img { border: none; }
+			.content { margin: 20px; padding: 10px; background-color: White;  border: 1px solid #999999; 			 }
+			.header { margin: 20px; padding: 10px; border: 1px solid #999999; 			background-image: url(http://www.brytenet.com/coin_themes/brytenet/images/header.jpg); 			}
+		/*]]>*/
+		</style>
+	</head>
+
+	<body>
+		<p class="header"><a href="http://www.brytenet.com/"><img src="http://www.brytenet.com/coin_images/brytenet.png" width="200" height="87" /></a></p>
+		<div class="content">
+		<h1>Error 401: Authorization required</h1>
+		<p><em>You are not authorized to view the page you are trying to access.</em></p>
+		<p>Possible reasons:</p>
+		<ul>
+			<li>You are not authorized to access the section you are trying to enter;</li>
+			<li>You mistyped your username;</li>
+			<li>You mistyped your password.</li>
+		</ul>
+		<p>If you believe this is a mistake or don’t understand what this means please contact the site administrator . Be sure to include the URL where you are getting the error.</p>
+		</div>
+	</body>
+</html>

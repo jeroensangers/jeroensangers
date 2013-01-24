@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Error 500: Internal server error</title>
+		<style type="text/css">
+		/*<![CDATA[*/
+			body { background: url(http://www.brytenet.com/coin_themes/brytenet/images/background-fade.jpg) repeat-x; }
+			h1 { 			}
+			img { border: none; }
+			.content { margin: 20px; padding: 10px; background-color: White;  border: 1px solid #999999; 			 }
+			.header { margin: 20px; padding: 10px; border: 1px solid #999999; 			background-image: url(http://www.brytenet.com/coin_themes/brytenet/images/header.jpg); 			}
+		/*]]>*/
+		</style>
+	</head>
+
+	<body>
+		<p class="header"><a href="http://www.brytenet.com/"><img src="http://www.brytenet.com/coin_images/brytenet.png" width="200" height="87" /></a></p>
+		<div class="content">
+		<h1>Error 500: Internal server error</h1>
+		<p><em>The script you're trying to access has suffered a fatal error.</em></p>
+		<p>Possible reasons:</p>
+		<ul>
+			<li>The script you were trying to use is misconfigured in some way, and cannot complete the task as it should;</li>
+			<li>The server is experiencing some technical problems. You should try again shortly.</li>
+		</ul>
+		</div>
+	</body>
+</html>

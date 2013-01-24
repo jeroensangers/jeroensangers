@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Error 403: Forbidden</title>
+		<style type="text/css">
+		/*<![CDATA[*/
+			body { background: url(http://www.brytenet.com/coin_themes/brytenet/images/background-fade.jpg) repeat-x; }
+			h1 { 			}
+			img { border: none; }
+			.content { margin: 20px; padding: 10px; background-color: White;  border: 1px solid #999999; 			 }
+			.header { margin: 20px; padding: 10px; border: 1px solid #999999; 			background-image: url(http://www.brytenet.com/coin_themes/brytenet/images/header.jpg); 			}
+		/*]]>*/
+		</style>
+	</head>
+
+	<body>
+		<p class="header"><a href="http://www.brytenet.com/"><img src="http://www.brytenet.com/coin_images/brytenet.png" width="200" height="87" /></a></p>
+		<div class="content">
+		<h1>Error 403: Forbidden</h1>
+		<p><em>You are not allowed to access the requested file.</em></p>
+		<p>Possible reasons:</p>
+		<ul>
+			<li>You are not authorized to access the section you are trying to enter;</li>
+			<li>The permissions are not set correctly on that file/directory;</li>
+			<li>Directory browsing may be turned off for that directory;</li>
+			<li>You mistyped your password;</li>
+			<li>You are a spambot or script kiddie and your IP address is on the block list.</li>
+		</ul>
+		</div>
+	</body>
+</html>

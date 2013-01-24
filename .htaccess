@@ -1,0 +1,65 @@
+# .htaccess for Jeroensangers.com
+# Author: Jeroen Sangers
+# Last modification: 2010.11.13
+
+<FilesMatch "^\.ht">
+order allow,deny
+deny from all
+</FilesMatch>
+
+# Error documents
+ErrorDocument 400 /400.shtml
+ErrorDocument 401 /401.shtml
+ErrorDocument 403 /403.shtml
+ErrorDocument 404 /404.shtml
+ErrorDocument 410 /410.shtml
+ErrorDocument 500 /500.shtml
+
+DirectoryIndex index.html
+
+RewriteEngine on
+
+# Do not rewrite usa-cco.com
+RewriteCond %{HTTP_HOST} usa\-cco\..*
+RewriteRule (.*) - [L]
+
+# Redirect RSS feed
+RewriteCond %{HTTP_USER_AGENT} !(FeedBurner|FeedValidator|MailChimp) [NC]
+RewriteRule ^rss/feed/articulos$ http://feedproxy.google.com/JeroenSangers [R,L]
+
+# Redirect files moved to El Canasto
+RewriteRule ^Servicios/Consultoria\-a\-distancia http://canasto.es/servicios/consultoria/ [R=permanent,L]
+RewriteRule ^Servicios/El\-Canasto http://canasto.es/servicios/informacion/ [R=permanent,L]
+RewriteRule ^Servicios/2\-Minutos\-de\-Productividad http://canasto.es/servicios/informacion/ [R=permanent,L]
+RewriteRule ^Servicios/El\-impulso\-de\-la\-manana http://canasto.es/servicios/el-impulso-de-la-manana/ [R=permanent,L]
+RewriteRule ^Acerca\-de\-Jeroen http://canasto.es/acerca-de-el-canasto/ [R=permanent,L]
+RewriteRule ^$ index.html [L]
+
+# Other files are gone
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*) - [G,L]
+
+# Allow access to the index_treemenu.php file for a faster admin interface
+# RewriteRule content/treemenu/? index_treemenu.php
+# RewriteRule ^index_treemenu\.php - [L]
+
+# RewriteRule ^robots\.txt - [L]
+# RewriteRule ^cgi\-bin/.* - [L]
+# RewriteRule ^google8589fa6992b6bde2\.html - [L]
+# RewriteRule ^y_key_21e4cec3a9cb3e01\.html - [L]
+# RewriteRule ^Jeroen_Sangers/.* - [L]
+# RewriteRule ^signature/.* - [L]
+# RewriteRule ^OpenID\.php - [L]
+# RewriteRule ^prey.* - [L]
+# RewriteRule ^var/cache/debug.html.* - [L]
+# RewriteRule ^var/[^/]+/cache/debug.html.* - [L]
+# Rewriterule ^var/storage/.* - [L]
+# Rewriterule ^var/[^/]+/storage/.* - [L]
+# RewriteRule ^/var/([^/]+/)?cache/(texttoimage|public)/.* - [L]
+# RewriteRule ^var/[^/]+/cache/public/.* - [L]
+# Rewriterule ^design/[^/]+/(stylesheets|images|javascript)/.* - [L]
+# Rewriterule ^share/icons/.* - [L]
+# Rewriterule ^extension/[^/]+/design/[^/]+/(stylesheets|images|javascripts?)/.* - [L]
+# Rewriterule ^packages/styles/.+/(stylesheets|images|javascript)/[^/]+/.* - [L]
+# RewriteRule .* index.php [L]
+# RewriteRule !(\.(gif|jpe?g?|png|css|js|swf|html?)|var(.+)storage.pdf(.+)\.pdf)$ index.php
