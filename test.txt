@@ -1,9 +1,0 @@
-# Robots file for jeroensangers.com
-# Author: Jeroen Sangers
-# Created: 20100829
-# Last modification: 20100829
-
-
-# Deafult access
-User-agent: *
-Disallow: /cgi-bin
