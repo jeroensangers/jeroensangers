@@ -1,11 +1,73 @@
-# .htaccess for Jeroensangers.com
+# .htaccess for jeroensangers.com
 # Author: Jeroen Sangers
-# Last modification: 2010.11.13
+# Last modification: 2013-02-27
 
-<FilesMatch "^\.ht">
-order allow,deny
-deny from all
-</FilesMatch>
+# Better website experience for IE users
+<IfModule mod_headers.c>
+	Header set X-UA-Compatible "IE=Edge,chrome=1"
+	<FilesMatch "\.(appcache|crx|css|eot|gif|htc|ico|jpe?g|js|m4a|m4v|manifest|mp4|oex|oga|ogg|ogv|otf|pdf|png|safariextz|svg|svgz|ttf|vcf|webm|webp|woff|xml|xpi)$">
+	Header unset X-UA-Compatible
+	</FilesMatch>
+</IfModule>
+
+# Allow access from all domains for webfonts.
+<IfModule mod_headers.c>
+	<FilesMatch "\.(eot|font.css|otf|ttc|ttf|woff)$">
+	Header set Access-Control-Allow-Origin "*"
+	</FilesMatch>
+</IfModule>
+
+# Expires headers (for better cache control)
+<IfModule mod_expires.c>
+	ExpiresActive on
+# Perhaps better to whitelist expires rules? Perhaps.
+	ExpiresDefault															"access plus 1 month"
+# cache.appcache needs re-requests in FF 3.6 (thanks Remy ~Introducing HTML5)
+	ExpiresByType text/cache-manifest						"access plus 0 seconds"
+# Your document html
+	ExpiresByType text/html											"access plus 1 week"
+# Data
+	ExpiresByType application/json							"access plus 0 seconds"
+	ExpiresByType application/xml								"access plus 0 seconds"
+	ExpiresByType text/xml											"access plus 0 seconds"
+# Feed
+	ExpiresByType application/atom+xml					"access plus 1 hour"
+	ExpiresByType application/rss+xml						"access plus 1 hour"
+# Favicon (cannot be renamed)
+	ExpiresByType image/x-icon									"access plus 1 week"
+# Media: images, video, audio
+	ExpiresByType audio/ogg											"access plus 1 month"
+	ExpiresByType image/gif											"access plus 1 month"
+	ExpiresByType image/jpeg										"access plus 1 month"
+	ExpiresByType image/png											"access plus 1 month"
+	ExpiresByType video/mp4											"access plus 1 month"
+	ExpiresByType video/ogg											"access plus 1 month"
+	ExpiresByType video/webm										"access plus 1 month"
+# HTC files	(css3pie)
+	ExpiresByType text/x-component							"access plus 1 month"
+# Webfonts
+	ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+	ExpiresByType application/x-font-ttf				"access plus 1 month"
+	ExpiresByType application/x-font-woff				"access plus 1 month"
+	ExpiresByType font/opentype									"access plus 1 month"
+	ExpiresByType image/svg+xml									"access plus 1 month"
+# CSS and JavaScript
+	ExpiresByType application/javascript				"access plus 1 week"
+	ExpiresByType text/css											"access plus 1 week"
+</IfModule>
+
+# Start rewrite engine
+<IfModule mod_rewrite.c>
+	Options +FollowSymlinks
+	RewriteEngine On
+</IfModule>
+
+<IfModule mod_rewrite.c>
+# Redirect requests for www.jeroensangers.com to jeroensangers.com
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
 
 # Error documents
 ErrorDocument 400 /400.shtml
@@ -17,49 +79,71 @@ ErrorDocument 500 /500.shtml
 
 DirectoryIndex index.html
 
-RewriteEngine on
-
 # Do not rewrite usa-cco.com
-RewriteCond %{HTTP_HOST} usa\-cco\..*
-RewriteRule (.*) - [L]
+<IfModule mod_rewrite.c>
+	RewriteCond %{HTTP_HOST} usa\-cco\..*
+	RewriteRule (.*) - [L]
+</IfModule>
 
 # Redirect RSS feed
-RewriteCond %{HTTP_USER_AGENT} !(FeedBurner|FeedValidator|MailChimp) [NC]
-RewriteRule ^rss/feed/articulos$ http://feedproxy.google.com/JeroenSangers [R,L]
+<IfModule mod_rewrite.c>
+	RewriteCond %{HTTP_USER_AGENT} !(FeedBurner|FeedValidator|MailChimp) [NC]
+	RewriteRule ^rss/feed/articulos$ http://feedproxy.google.com/JeroenSangers [R,L]
+</IfModule>
 
 # Redirect files moved to El Canasto
-RewriteRule ^Servicios/Consultoria\-a\-distancia http://canasto.es/servicios/consultoria/ [R=permanent,L]
-RewriteRule ^Servicios/El\-Canasto http://canasto.es/servicios/informacion/ [R=permanent,L]
-RewriteRule ^Servicios/2\-Minutos\-de\-Productividad http://canasto.es/servicios/informacion/ [R=permanent,L]
-RewriteRule ^Servicios/El\-impulso\-de\-la\-manana http://canasto.es/servicios/el-impulso-de-la-manana/ [R=permanent,L]
-RewriteRule ^Acerca\-de\-Jeroen http://canasto.es/acerca-de-el-canasto/ [R=permanent,L]
-RewriteRule ^$ index.html [L]
+<IfModule mod_rewrite.c>
+	RewriteRule ^Servicios/Consultoria\-a\-distancia http://canasto.es/servicios/consultoria/ [R=permanent,L]
+	RewriteRule ^Servicios/El\-Canasto http://canasto.es/servicios/informacion/ [R=permanent,L]
+	RewriteRule ^Servicios/2\-Minutos\-de\-Productividad http://canasto.es/servicios/informacion/ [R=permanent,L]
+	RewriteRule ^Servicios/El\-impulso\-de\-la\-manana http://canasto.es/servicios/el-impulso-de-la-manana/ [R=permanent,L]
+	RewriteRule ^Acerca\-de\-Jeroen http://canasto.es/acerca-de-el-canasto/ [R=permanent,L]
+	RewriteRule ^$ index.html [L]
+</IfModule>
 
 # Other files are gone
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule (.*) - [G,L]
+<IfModule mod_rewrite.c>
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule (.*) - [G,L]
+</IfModule>
 
-# Allow access to the index_treemenu.php file for a faster admin interface
-# RewriteRule content/treemenu/? index_treemenu.php
-# RewriteRule ^index_treemenu\.php - [L]
+# Compress static data
+<IfModule mod_deflate.c>
+	# Force deflate for mangled headers developer.yahoo.com/blogs/ydn/posts/2010/12/pushing-beyond-gzipping/
+	<IfModule mod_setenvif.c>
+		<IfModule mod_headers.c>
+			SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+			RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+		</IfModule>
+	</IfModule>
+# Compress all output labeled with one of the following MIME-types
+	<IfModule mod_filter.c>
+		AddOutputFilterByType DEFLATE application/atom+xml \
+																	application/javascript \
+																	application/json \
+																	application/rss+xml \
+																	application/vnd.ms-fontobject \
+																	application/x-font-ttf \
+																	application/xhtml+xml \
+																	application/xml \
+																	font/opentype \
+																	image/svg+xml \
+																	image/x-icon \
+																	text/css \
+																	text/html \
+																	text/plain \
+																	text/x-component \
+																	text/xml
+	</IfModule>
+</IfModule>
 
-# RewriteRule ^robots\.txt - [L]
-# RewriteRule ^cgi\-bin/.* - [L]
-# RewriteRule ^google8589fa6992b6bde2\.html - [L]
-# RewriteRule ^y_key_21e4cec3a9cb3e01\.html - [L]
-# RewriteRule ^Jeroen_Sangers/.* - [L]
-# RewriteRule ^signature/.* - [L]
-# RewriteRule ^OpenID\.php - [L]
-# RewriteRule ^prey.* - [L]
-# RewriteRule ^var/cache/debug.html.* - [L]
-# RewriteRule ^var/[^/]+/cache/debug.html.* - [L]
-# Rewriterule ^var/storage/.* - [L]
-# Rewriterule ^var/[^/]+/storage/.* - [L]
-# RewriteRule ^/var/([^/]+/)?cache/(texttoimage|public)/.* - [L]
-# RewriteRule ^var/[^/]+/cache/public/.* - [L]
-# Rewriterule ^design/[^/]+/(stylesheets|images|javascript)/.* - [L]
-# Rewriterule ^share/icons/.* - [L]
-# Rewriterule ^extension/[^/]+/design/[^/]+/(stylesheets|images|javascripts?)/.* - [L]
-# Rewriterule ^packages/styles/.+/(stylesheets|images|javascript)/[^/]+/.* - [L]
-# RewriteRule .* index.php [L]
-# RewriteRule !(\.(gif|jpe?g?|png|css|js|swf|html?)|var(.+)storage.pdf(.+)\.pdf)$ index.php
+# UTF-8 encoding
+AddDefaultCharset utf-8
+AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
+
+# Block access to "hidden" directories or files
+<IfModule mod_rewrite.c>
+	RewriteCond %{SCRIPT_FILENAME} -d [OR]
+	RewriteCond %{SCRIPT_FILENAME} -f
+	RewriteRule "(^|/)\." - [F]
+</IfModule>
