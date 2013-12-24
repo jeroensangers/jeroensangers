@@ -1,26 +1,28 @@
 #!/usr/bin/perl
 use CGI::Carp qw(fatalsToBrowser) ;
+use vars qw($version $callback_to_iandouglasdotcom $callback_response);
+
 print "Content-type: text/html\n\n" ;
 
 #####[[[
 # sa-trainer.cgi
-$version = "3.06" ;
+$version = "4.02" ;
 #
-# sa-trainer.cgi by Ian Douglas, iandouglas.com, Copyright 2004-2007
+# sa-trainer.cgi by Ian Douglas, iandouglas.com, Copyright 2004-2013
 # Some Rights Reserved under a Creative Commons "Attribution Non-commercial"
 # license, http://creativecommons.org/licenses/by-nc/3.0/
 # (you are free to use, copy and modify this code and redistribute it, but
 # please do give credit where it's due (to me), and your redistribution must
-# NOT be for commercial purposes -- you got it from me for free, do the same
+# NOT be for for-profit purposes -- you got it from me for free, do the same
 # for others please)
 #
 # To reach me for support, please contact me via Email at either of the
-# following addresses: ian.douglas@iandouglas.com or wild98@gmail.com
+# following addresses: ian.douglas@iandouglas.com
 #
 # This script has always been, and will continue to be, free of charge to 
 # obtain. If you'd like to show appreciation for the work that's gone into it,
 # you're more than welcome to send in a PayPal donation of any amount, however
-# you are under NO OBLIGATION whatsoever to donate for my time. ;o)
+# you are under NO OBLIGATION whatsoever to donate for my time.
 #]]]
 #####[[[ CONFIGURATION
 # setting this to 'Y' will trigger a callback check to iandouglas.com to make
@@ -39,11 +41,11 @@ $cpanel_username = "jeroensa" ;
 $mail_format = "Maildir" ;
 #$global_ham_email = "global-ham" ; # @ jeroensangers.com
 #$global_hambox = "scan-ham" ;
-$check_user_Inbox_for_ham = "N" ;
-$user_hambox = "scan-ham" ;
+$check_user_Inbox_for_ham = "Y" ;
+#$user_hambox = "scan-ham" ;
 #$global_spam_email = "global-spam" ; # @ jeroensangers.com
 $check_user_spamboxes_for_spam = "Y" ;
-$user_spambox = "scan-spam" ;
+$user_spambox = "Junk" ;
 #$global_spambox = "scan-spam" ;
 #####]]] CONFIGURATION IS COMPLETE!
 
@@ -55,37 +57,119 @@ $user_spambox = "scan-spam" ;
 # pretty much always be free of charge), please DO send me a complete copy of 
 # your script including any changes or modifications
 
-#[[[ HTML header
+$callback_response = '';
+if ($callback_to_iandouglasdotcom eq 'Y') { #[[[
+  use LWP::UserAgent ;
+  my $ua = new LWP::UserAgent ;
+  my $url = "http://iandouglas.com/sa-trainer/latest-version.txt" ;
+# callback to fetch latest version number
+  my $req = new HTTP::Request GET => $url ;
+  my $res = $ua->request($req) ;
+  if ($res->is_success) {
+    my $id_version = $res->content ;
+    if (($id_version + 0) > ($version + 0)) {
+      $callback_response = '<font style="color:#F00">NOTICE: A newer version of this script is available (v'.$id_version.') at <a href="http://iandouglas.com/sa-trainer">iandouglas.com</a>.</font><br />' ;
+    }
+  } else {
+    die "Could not connect to iandouglas.com to check for a new version of this software.<br />If this error persists, please <a href='mailto:iandouglas736\@gmail.com'>contact Ian Douglas</a> for assistance." ;
+  }
+} #]]]
+#[[[ HTML
 print <<__EOT__;
 <html>
-<head><title>sa-trainer by iandouglas.com</title>
-<style type="text/css">
-body { font-family: arial,helvetica,sans serif; font-size: 10pt }
-p { font-family: arial,helvetica,sans serif; font-size: 10pt }
-pre { font-family: arial,helvetica,sans serif; font-size: 10pt }
+<head>
+<title>sa-trainer by iandouglas.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+<style>
+.linkonly {
+  margin-top: 1px;
+}
+.skipnav {
+  padding-top: 50px;
+}
+.bottomblock {
+	position: absolute;
+	bottom: 10px;
+	width: 740px;
+}
 </style>
 <body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-142829-30', 'iandouglas.com');
+  ga('send', 'pageview');
+
+</script>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">sa-trainer $version</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="linkonly">
+					<a href="http://www.iandouglas.com/spamassassin-trainer">
+						<span class="glyphicon glyphicon-list-alt"></span>
+						Documentation
+					</a>
+				</li>
+        <li class="linkonly">
+					<a href="http://www.iandouglas.com/sa-trainer/index.php">
+						<span class="glyphicon glyphicon-wrench"></span>
+						Build a New Script
+					</a>
+				</li>
+        <li class="linkonly">
+					<a href="mailto:ian.douglas\@iandouglas.com?subject=SpamAssassin Trainer Support">
+						<span class="glyphicon glyphicon-question-sign"></span>
+						Email Support
+					</a></li>
+        <li><a href="https://helpouts.google.com/113763167140406107715/ls/bbcf42fd8de12842">
+					<img height="25" src="https://www.google.com/help/hc/images/helpouts/helpouts_icon_48.png"> Live Support via Google Helpouts</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container skipnav">
+  <div class="starter-template">
+    <h1>SpamAssassin Trainer</h1>
+		<p>$callback_response</p>
+	</div>
+
+	<div class="container bottomblock">
+		<div class="starter-template">
+		<p>sa-trainer.cgi version $version by Ian Douglas, iandouglas.com, Copyright 2004-2013<br />
+		Some Rights Reserved under a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons "Attribution Non-commercial" license</a><br />
+		NEW: Get live support using <a href="https://helpouts.google.com/113763167140406107715/ls/bbcf42fd8de12842">Google Helpouts</a>.  Free support options and extra documentation found <a href="http://www.iandouglas.com/spamassassin-trainer">here</a>.
+		</div>
+	</div>
+
 __EOT__
+
 #]]]
-print '<p>sa-trainer.cgi version '.$version.' by Ian Douglas, iandouglas.com, Copyright 2004-2010<br />' ;
-print 'Some Rights Reserved under a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons "Attribution Non-commercial" license</a><br />' ;
-if ($callback_to_iandouglasdotcom eq 'Y') { #[[[
-	use LWP::UserAgent ;
-	my $ua = new LWP::UserAgent ;
-	$url = "http://iandouglas.com/sa-trainer/latest-version.txt" ;
-# callback to fetch latest version number
-	my $req = new HTTP::Request GET => $url ;
-	my $res = $ua->request($req) ;
-	if ($res->is_success) {
-	   $id_version = $res->content ;
-		if (($id_version + 0) > ($version + 0)) {
-			print '<font style="color:#F00">NOTICE: A newer version of this script is available (v'.$id_version.') at <a href="http://iandouglas.com/sa-trainer">iandouglas.com</a>.</font><br />' ;
-		}
-	} else {
-		die "Could not connect to iandouglas.com to check for a new version of this software.<br />If this error persists, please <a href='mailto:iandouglas736\@gmail.com'>contact Ian Douglas</a> for assistance." ;
-	}
-} #]]]
-print 'Support for this script available <a href="http://www.lunarforums.com/forum/index.php?topic=13958.0">here</a> for LunarPages customers, and <a href="http://iandouglas.com/spamassassin-trainer/">here</a></p>' ;
+
 #[[[ sanity checks
 $continue = 1 ;
 $error_msg = '' ;
