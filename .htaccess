@@ -17,7 +17,7 @@
 	</FilesMatch>
 </IfModule>
 
-# Expires headers (for better cache control)
+<mt:Ignore># Expires headers (for better cache control)
 <IfModule mod_expires.c>
 	ExpiresActive on
 # Perhaps better to whitelist expires rules? Perhaps.
@@ -54,7 +54,7 @@
 # CSS and JavaScript
 	ExpiresByType application/javascript				"access plus 1 week"
 	ExpiresByType text/css											"access plus 1 week"
-</IfModule>
+</IfModule></mt:Ignore>
 
 # Start rewrite engine
 <IfModule mod_rewrite.c>
