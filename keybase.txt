@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/jeroensangers
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://jeroensangers.com
+  * I am jeroensangers (https://keybase.io/jeroensangers) on keybase.
+  * I have a public key with fingerprint 7A47 37F4 94C5 3070 6DCA  062D 9DB6 24DC B503 39EF
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "7a4737f494c530706dca062d9db624dcb50339ef",
+            "host": "keybase.io",
+            "key_id": "9db624dcb50339ef",
+            "uid": "d20977257ed595f4c7dc1754898d6200",
+            "username": "jeroensangers"
+        },
+        "service": {
+            "hostname": "jeroensangers.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1412070103,
+    "expire_in": 157680000,
+    "prev": "cfd1249220b397feef7b8f658732f93a5a36e483a3f5ae06992d27f6dddc7197",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v1.0.5
+Comment: https://keybase.io/crypto
+
+yMHoAnicbZFrSBRRFMdXzcq1h5I9JAm5pEWKzc7r7qzfjMItTSQrsYVtZu4dHc2Z
+dXfcbRNTQajF0kqLAiWTPtnDCkRC0vWBGZUhGoYkfigQ8oHfIpXqjtQ375fLPef3
+/59zzxneHmWxRiRznVXP7g1GRrwPr1ZaCo5cmaoCko6CwFEFyvD6pahaMfZ6vKpm
+AAeAIgsZqLACK3MMBSkeySLF00hAEk+zSJY4imEErIB0UKL7TAWxkUQfzlB1EiMP
+t4pIdAO+cj2BaEqAkOYgRpzAKawMkWyDHGsX7IinKcoEfdirieWY0KXYq2PNJ5ot
++kB1OiApvypjs3Gz/kZYhqyXExePVzd0Wb9E0iWG4XGYaiPoMfEAltz/jNySqiEy
+ASLwE62qa8BhI6RsqKazjbXRZAo2ikkH+LJH9WK3ahIc5O0UOWYZ7CeWsoJsNCvQ
+NCUxAlQwVqBkV3jODhlaERiRExkes3ZGZBROxBQvCDSiocIjhGRoEyAwv1ah6cDB
+kjbFYmLpU4s10aj0YlA9GHZtskRYLZujI80dWqwxcf83u9q+5U/hhdbDmd1N3U+6
+PuS1zTW3LVqcTaOdU5/n7o6LcLzlbO9C0duODuuXfYf6B+Jahhv4CbAtZ2rrrpHk
++J1LQvvNhz3xAxN1zjTj9ZlIp2vp1ffdvphUtcYfih/PNTITZ5YvhmvoHf3Xi6Zj
+V4ai+30zP+5/q61r7D12ezG60Xn++YuRpvk9qVejYud/BtjKzmBzPeCcaQ3ZrX0u
+/0hCgjLwMe/Ry083goEHMSlZ+YW3Tj7tyQrlBuTTgwfOvasvmDlO1Uy2XVtOKlvJ
+/Jpfkd1HWR4Hx0r3Rk3eCWUlHoRjXSkLIddo7Zuho7V1SYHfa2F6/4m4htlTv3rK
+Zrtzptf+Aje8F4U=
+=9JHb
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jeroensangers
+
+==================================================================
